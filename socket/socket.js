@@ -8,7 +8,8 @@ let io;
 export const initSocket = (server) => {
   io = new Server(server, {
     cors: {
-      origin: "https://chat-frontend.vercel.app", // 🔥 EXACT frontend URL
+      origin: "https://chat-frontend.vercel.app", // 🔥 EXACT VERCEL URL
+      methods: ["GET", "POST"],
       credentials: true
     }
   });
@@ -23,15 +24,12 @@ export const initSocket = (server) => {
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
     socket.on("disconnect", () => {
-      if (userId) {
-        delete userSocketMap[userId];
-      }
+      delete userSocketMap[userId];
       io.emit("getOnlineUsers", Object.keys(userSocketMap));
     });
   });
 };
 
-// helper function
 export const getReceiverSocketId = (receiverId) => {
   return userSocketMap[receiverId];
 };
