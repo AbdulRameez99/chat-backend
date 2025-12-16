@@ -16,10 +16,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-// ✅ CORS FIX (for deployment)
+// ✅ FINAL CORRECT CORS CONFIG
 app.use(
   cors({
-    origin: true,        // allow all origins (Vercel + localhost)
+    origin: "https://chat-frontend.vercel.app", // 🔥 EXACT Vercel URL
     credentials: true
   })
 );
